@@ -1,0 +1,101 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:TesiNexus.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:material="clr-namespace:Material.Styles;assembly=Material.Styles"
+		xmlns:icons="using:Material.Icons.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="1000"
+		Width="1700" Height="900"
+		MinWidth="1700" MinHeight="900"
+        x:Class="TesiNexus.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="TesiNexus"
+	    TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+		ExtendClientAreaToDecorationsHint="True"
+		xmlns:loc="clr-namespace:TesiNexus.Models" 	
+		WindowStartupLocation="CenterScreen">
+
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
+	<Panel>
+		<ExperimentalAcrylicBorder IsHitTestVisible="False">
+			<ExperimentalAcrylicBorder.Material>
+				<ExperimentalAcrylicMaterial
+					BackgroundSource="Digger"
+					TintColor="DarkGray"
+					TintOpacity="1"
+					MaterialOpacity="0.60" />
+			</ExperimentalAcrylicBorder.Material>
+		</ExperimentalAcrylicBorder>
+		
+		<Grid
+			RowDefinitions="30,60, Auto">
+			<Panel Grid.Row="0">
+				<ExperimentalAcrylicBorder IsHitTestVisible="False">
+					<ExperimentalAcrylicBorder.Material>
+						<ExperimentalAcrylicMaterial
+							BackgroundSource="Digger"
+							TintColor="Black"
+							TintOpacity="1"
+							MaterialOpacity="0.65" />
+					</ExperimentalAcrylicBorder.Material>
+				</ExperimentalAcrylicBorder>
+			</Panel>
+			
+			<Panel 
+				Background="black"
+				Name="MenuBar"
+				Grid.Row="1">
+				<ExperimentalAcrylicBorder IsHitTestVisible="False">
+					<ExperimentalAcrylicBorder.Material>
+						<ExperimentalAcrylicMaterial
+							BackgroundSource="Digger"
+							TintColor="Black"
+							TintOpacity="0"
+							MaterialOpacity="0.65" />
+					</ExperimentalAcrylicBorder.Material>
+				</ExperimentalAcrylicBorder>
+				
+				<Grid ColumnDefinitions="Auto,*">
+					<Button 
+						Background="Transparent"
+						Grid.Column="0"
+						Width="70"
+						Height="58"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Center"
+						>
+					
+						<icons:MaterialIcon 
+							Kind="Menu"
+							Foreground="White"
+							Height="50"
+							Width="50"
+							Margin="5"
+							/>
+					</Button>
+
+					<StackPanel 
+						Grid.Column="1" 
+						>
+						
+					</StackPanel>
+				</Grid>
+			</Panel>
+			
+			<StackPanel
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				Grid.Row="2">
+				
+				
+			</StackPanel>
+			
+		</Grid>
+	</Panel>
+
+</Window>

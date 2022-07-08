@@ -3,22 +3,17 @@ using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace TesiNexus.Models
+
+namespace TesiNexus.Behaviors
 {
-    /// <summary>
-    /// Container class for attached properties. Must inherit from <see cref="AvaloniaObject"/>.
-    /// </summary>
-    public class DoubleTappedBehav : AvaloniaObject
+    public class MouseOverBehav : AvaloniaObject
     {
-        static DoubleTappedBehav()
+        static MouseOverBehav()
         {
             CommandProperty.Changed.Subscribe(x => HandleCommandChanged(x.Sender, x.NewValue.GetValueOrDefault<ICommand>()));
+
         }
 
         /// <summary>
@@ -47,12 +42,12 @@ namespace TesiNexus.Models
                 if (commandValue != null)
                 {
                     // Add non-null value
-                    interactElem.AddHandler(InputElement.KeyDownEvent, Handler);
+                    interactElem.AddHandler(InputElement.PointerEnterEvent, Handler);
                 }
                 else
                 {
                     // remove prev value
-                    interactElem.RemoveHandler(InputElement.KeyDownEvent, Handler);
+                    interactElem.RemoveHandler(InputElement.PointerEnterEvent, Handler);
                 }
             }
 
@@ -67,6 +62,7 @@ namespace TesiNexus.Models
                 }
             }
         }
+
 
 
         /// <summary>
@@ -96,10 +92,10 @@ namespace TesiNexus.Models
         /// <summary>
         /// Accessor for Attached property <see cref="CommandParameterProperty"/>.
         /// </summary>
-        public static object GetCommandParameter(AvaloniaObject element)
+        public static object GetCommandParameter(Avalonia.AvaloniaObject element)
         {
             return element.GetValue(CommandParameterProperty);
         }
     }
-
 }
+

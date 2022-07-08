@@ -20,7 +20,7 @@ namespace TesiNexus.Behaviors
         /// Identifies the <seealso cref="CommandProperty"/> avalonia attached property.
         /// </summary>
         /// <value>Provide an <see cref="ICommand"/> derived object or binding.</value>
-        public static readonly AttachedProperty<ICommand> CommandProperty = AvaloniaProperty.RegisterAttached<DoubleTappedBehav, Interactive, ICommand>(
+        public static readonly AttachedProperty<ICommand> CommandProperty = AvaloniaProperty.RegisterAttached<MouseOverBehav, Interactive, ICommand>(
             "Command", default(ICommand), false, BindingMode.OneTime);
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace TesiNexus.Behaviors
         /// Use this as the parameter for the <see cref="CommandProperty"/>.
         /// </summary>
         /// <value>Any value of type <see cref="object"/>.</value>
-        public static readonly AttachedProperty<object> CommandParameterProperty = AvaloniaProperty.RegisterAttached<DoubleTappedBehav, Interactive, object>(
+        public static readonly AttachedProperty<object> CommandParameterProperty = AvaloniaProperty.RegisterAttached<MouseOverBehav, Interactive, object>(
             "CommandParameter", default(object), false, BindingMode.OneWay, null);
 
 

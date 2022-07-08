@@ -1,12 +1,5 @@
 using Avalonia.Controls;
-using Avalonia.Interactivity;
-using TesiNexus.ViewModels;
-using Avalonia.Input;
 using Avalonia.Markup.Xaml;
-using Avalonia;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System;
 using Avalonia.LogicalTree;
 using System.Linq;
 using MessageBox.Avalonia;

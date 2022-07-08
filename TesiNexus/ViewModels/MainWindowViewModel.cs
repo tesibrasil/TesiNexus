@@ -9,44 +9,37 @@ using Avalonia;
 using Avalonia.Controls;
 using System.Threading.Tasks;
 using Avalonia.Input;
+using MessageBox.Avalonia;
 
 namespace TesiNexus.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public ICommand CloseCommand { get; }
-        public ReactiveCommand<object, Unit> EditCommand { get; set; }
         public MainWindowViewModel()
         {
-            CloseCommand = ReactiveCommand.Create(CloseApp);
-            EditCommand = ReactiveCommand.CreateFromTask<object, Unit>(EditCommandExecuted);
+            ShowSynchronizerCommand = ReactiveCommand.Create(ShowSynchronizer);
+            Synchronizer = new SynchronizerViewModel();
+            CurrentView = Synchronizer;
         }
 
-        private void ShowMessage()
+        public ICommand ShowSynchronizerCommand { get; }
+        public SynchronizerViewModel Synchronizer { get; set; }
+
+        private object _currentView;
+
+        public object CurrentView
         {
-            var msg = MessageBox.Avalonia.MessageBoxManager
-            .GetMessageBoxStandardWindow("title", "Lorem ipsum ");
-            
+            get { return _currentView; }
+            set { this.RaiseAndSetIfChanged(ref _currentView, value); }
+        }
+
+
+        private void ShowSynchronizer()
+        {
+            var msg = MessageBoxManager.GetMessageBoxStandardWindow("title", "Working");
+
             msg.Show();
         }
-        public void CloseApp()
-        {
-            var lifetime = (IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime;
-
-            lifetime.Shutdown();
-        }
-
-        private async Task<Unit> EditCommandExecuted(object p)
-        {
-            var msg = MessageBox.Avalonia.MessageBoxManager
-            .GetMessageBoxStandardWindow("Teste", "Working...");
-            
-            
-            msg.Show();
-
-            return Unit.Default;
-        }
-        
 
 
     }

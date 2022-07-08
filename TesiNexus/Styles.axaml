@@ -14,7 +14,7 @@
 	</Style>
 
 	<Style Selector="Button.Burguer">
-		<Setter Property="Background" Value="Transparent"></Setter>
+		<Setter Property="ClickMode" Value="Press" ></Setter>
 		
 
 	</Style>

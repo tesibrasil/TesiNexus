@@ -5,23 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:material="clr-namespace:Material.Styles;assembly=Material.Styles"
 		xmlns:icons="using:Material.Icons.Avalonia"
-        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="1000"
-		Width="1700" Height="900"
-		MinWidth="1700" MinHeight="900"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
         x:Class="TesiNexus.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="TesiNexus"
+		Name="TesiNexus"
 	    TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
 		ExtendClientAreaToDecorationsHint="True"
-		xmlns:loc="clr-namespace:TesiNexus.Models" 	
-		WindowStartupLocation="CenterScreen">
+		xmlns:loc="clr-namespace:TesiNexus.Models"
+		WindowStartupLocation="CenterScreen" WindowState="Maximized" >
 
 	<Design.DataContext>
 		<vm:MainWindowViewModel/>
 	</Design.DataContext>
 
-	<Panel>
+	<Grid>
 		<ExperimentalAcrylicBorder IsHitTestVisible="False">
 			<ExperimentalAcrylicBorder.Material>
 				<ExperimentalAcrylicMaterial
@@ -31,9 +30,19 @@
 					MaterialOpacity="0.60" />
 			</ExperimentalAcrylicBorder.Material>
 		</ExperimentalAcrylicBorder>
-		
-		<Grid
-			RowDefinitions="30,60, Auto">
+
+		<Image
+			Source="/Assets/TesiNexusBeW.png"
+			Width="800"
+			Opacity="480"
+			HorizontalAlignment="Center"
+			VerticalAlignment="Center"
+			ZIndex="0"
+			>
+		</Image>
+
+		<Grid Name="gridCenter"
+			RowDefinitions="30, 60, *, 60">
 			<Panel Grid.Row="0">
 				<ExperimentalAcrylicBorder IsHitTestVisible="False">
 					<ExperimentalAcrylicBorder.Material>
@@ -45,11 +54,69 @@
 					</ExperimentalAcrylicBorder.Material>
 				</ExperimentalAcrylicBorder>
 			</Panel>
-			
-			<Panel 
+
+			<Panel
 				Background="black"
 				Name="MenuBar"
-				Grid.Row="1">
+				Grid.Row="1"
+				>
+				<ExperimentalAcrylicBorder IsHitTestVisible="False">
+					<ExperimentalAcrylicBorder.Material>
+						<ExperimentalAcrylicMaterial
+							BackgroundSource="Digger"
+							TintColor="Black"
+							TintOpacity="0"
+							MaterialOpacity="0.65" />
+					</ExperimentalAcrylicBorder.Material>
+
+				</ExperimentalAcrylicBorder>
+
+				<Grid ColumnDefinitions="Auto,*">
+
+					<Button
+						Background="Transparent"
+						Grid.Column="0"
+						Width="70"
+						Height="58"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Center"
+						>
+
+						<icons:MaterialIcon
+							Kind="Menu"
+							Foreground="White"
+							Height="50"
+							Width="50"
+							Margin="5"
+							/>
+					</Button>
+
+					<DockPanel
+						Grid.Column="1">
+
+					</DockPanel>
+				</Grid>
+
+			</Panel>
+
+			<!--Center-->
+			
+			<ContentControl 
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch"
+				Grid.Row="2"
+				Name="Main"
+				Content="{Binding CurrentView, Mode=TwoWay}">
+					
+			</ContentControl>
+
+			<!--Center-->
+			
+			<Panel
+				Background="black"
+				Name="Footer"
+				Grid.Row="3"
+				>
 				<ExperimentalAcrylicBorder IsHitTestVisible="False">
 					<ExperimentalAcrylicBorder.Material>
 						<ExperimentalAcrylicMaterial
@@ -59,43 +126,18 @@
 							MaterialOpacity="0.65" />
 					</ExperimentalAcrylicBorder.Material>
 				</ExperimentalAcrylicBorder>
-				
-				<Grid ColumnDefinitions="Auto,*">
-					<Button 
-						Background="Transparent"
-						Grid.Column="0"
-						Width="70"
-						Height="58"
-						HorizontalAlignment="Left"
-						VerticalAlignment="Center"
-						>
-					
-						<icons:MaterialIcon 
-							Kind="Menu"
-							Foreground="White"
-							Height="50"
-							Width="50"
-							Margin="5"
-							/>
-					</Button>
 
-					<StackPanel 
-						Grid.Column="1" 
-						>
-						
-					</StackPanel>
-				</Grid>
+				<Image
+					Source="/Assets/TesiNexus.png"
+					HorizontalAlignment="Right"
+					Height="30"
+					Margin="20"
+					ToolTip.Tip="Sobre o TesiNexus"
+					ToolTip.ShowDelay="10">
+
+				</Image>
 			</Panel>
-			
-			<StackPanel
-				HorizontalAlignment="Center"
-				VerticalAlignment="Center"
-				Grid.Row="2">
-				
-				
-			</StackPanel>
-			
 		</Grid>
-	</Panel>
+	</Grid>
 
 </Window>

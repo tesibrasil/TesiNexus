@@ -13,8 +13,8 @@
 	    TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
 		ExtendClientAreaToDecorationsHint="True"
-		xmlns:bhv="clr-namespace:TesiNexus.Behaviors" 	
-		WindowStartupLocation="CenterScreen">
+		xmlns:bhv="clr-namespace:TesiNexus.Behaviors"
+		WindowStartupLocation="CenterScreen" WindowState="Maximized">
 
 	<Design.DataContext>
 		<vm:MainWindowViewModel/>
@@ -72,7 +72,7 @@
 				</ExperimentalAcrylicBorder>
 
 				<Grid ColumnDefinitions="Auto,*">
-					<ToggleButton 
+					<ToggleButton
 						Background="Transparent"
 						Grid.Column="0"
 						Width="70"
@@ -100,18 +100,50 @@
 			</Panel>
 
 			<!--Center-->
-			
-			<ContentControl 
+
+			<Grid
 				HorizontalAlignment="Stretch"
 				VerticalAlignment="Stretch"
-				Grid.Row="2"
-				Name="Main"
-				Content="{Binding CurrentView, Mode=TwoWay}">
-					
-			</ContentControl>
+				Background="Transparent"
+				Grid.Row="2">
+
+				<Border Width="NaN"
+						HorizontalAlignment="Left"
+						BorderThickness="0.5"
+						Margin="5,5,0,5"
+						CornerRadius="10"
+						BorderBrush="White"
+						Background="Black"
+						Opacity="155"
+						ZIndex="10">
+
+					<StackPanel Classes.StackMenu="{Binding ShowMenu}"
+								bhv:MouseOverBehav.Command="{Binding MouseOverCommand}"
+								bhv:MouseLeaveBehav.Command="{Binding MouseLeaveCommand}">
+
+						<RadioButton Content="Synchronizer"
+							 Width="{Binding WidthMenu}"
+							 Foreground="White"
+							 FontSize="14"
+							 Classes="HamMenuOpen"
+							 Name="Home"
+							 />
+
+					</StackPanel>
+
+				</Border>
+
+				<ContentControl
+					ZIndex="1"
+					Margin="{Binding Margin, Mode=TwoWay}"
+					Name="Main"
+					Content="{Binding CurrentView, Mode=TwoWay}">
+
+				</ContentControl>
+			</Grid>
 
 			<!--Center-->
-			
+
 			<Panel
 				Background="black"
 				Name="Footer"
@@ -139,45 +171,6 @@
 			</Panel>
 		</Grid>
 	</Grid>
-			
-			<Grid
-				HorizontalAlignment="Stretch"
-				VerticalAlignment="Stretch"	
-				Background="Transparent"
-				Grid.Row="2">
 
-				<Border Width="NaN"
-						HorizontalAlignment="Left"
-						BorderThickness="0.5"
-						Margin="5,5,0,5"
-						CornerRadius="10"
-						BorderBrush="White"
-						Background="Black"
-						Opacity="155">
-
-
-
-					
-					<StackPanel Classes.StackMenu="{Binding ShowMenu}"
-								bhv:MouseOverBehav.Command="{Binding MouseOverCommand}"
-								bhv:MouseLeaveBehav.Command="{Binding MouseLeaveCommand}">
-
-
-						<RadioButton Content="Synchronizer"
-							 Width="{Binding WidthMenu}"
-							 Foreground="White"
-							 FontSize="14"
-						     Classes="HamMenuOpen"
-							 Name="Home"
-							 />
-						
-					</StackPanel>
-					
-				</Border>
-				
-			</Grid>
-			
-		</Grid>
-	</Panel>
 
 </Window>

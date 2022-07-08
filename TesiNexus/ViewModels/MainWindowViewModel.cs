@@ -15,9 +15,6 @@ namespace TesiNexus.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public ICommand CloseCommand { get; }
-        public ReactiveCommand<object, Unit> EditCommand { get; set; }
-
 
     #region Hamburger Menu Properties
         
@@ -66,24 +63,19 @@ namespace TesiNexus.ViewModels
 
         public MainWindowViewModel()
         {
-            CloseCommand = ReactiveCommand.Create(CloseApp);
-            EditCommand = ReactiveCommand.CreateFromTask<object, Unit>(EditCommandExecuted);
-
             #region Hamburger Menu Initialize
 
             ShowMenu = false;
             WidthMenu = 200;
-            Margin = new Thickness(235, 10, 10, 10);
+            Margin = new Thickness(215, 10, 10, 10);
             MouseOverCommand = ReactiveCommand.CreateFromTask<object, Unit>(MouseOverCommandExecuted);
             MouseLeaveCommand = ReactiveCommand.CreateFromTask<object, Unit>(MouseLeaveCommandExecuted); 
 
             #endregion
-            ShowSynchronizerCommand = ReactiveCommand.Create(ShowSynchronizer);
             Synchronizer = new SynchronizerViewModel();
             CurrentView = Synchronizer;
         }
 
-        public ICommand ShowSynchronizerCommand { get; }
         public SynchronizerViewModel Synchronizer { get; set; }
 
         private object _currentView;
@@ -94,15 +86,6 @@ namespace TesiNexus.ViewModels
             set { this.RaiseAndSetIfChanged(ref _currentView, value); }
         }
 
-
-        private void ShowSynchronizer()
-        {
-            var msg = MessageBoxManager.GetMessageBoxStandardWindow("title", "Working");
-
-            msg.Show();
-
-            return Unit.Default;
-        }
 
       #region HamburgerMenuMethods
         public void ActionMenu()
@@ -115,7 +98,7 @@ namespace TesiNexus.ViewModels
             else
             {
                 WidthMenu = 200;
-                Margin = new Thickness(235, 10, 10, 10);
+                Margin = new Thickness(215, 10, 10, 10);
             }
         }
 

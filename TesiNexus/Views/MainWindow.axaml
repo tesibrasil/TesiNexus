@@ -14,7 +14,7 @@
 	    TransparencyLevelHint="AcrylicBlur"
         Background="Transparent"
 		ExtendClientAreaToDecorationsHint="True"
-		xmlns:loc="clr-namespace:TesiNexus.Models" 	
+		xmlns:bhv="clr-namespace:TesiNexus.Behaviors" 	
 		WindowStartupLocation="CenterScreen">
 
 	<Design.DataContext>
@@ -33,7 +33,7 @@
 		</ExperimentalAcrylicBorder>
 		
 		<Grid
-			RowDefinitions="30,60, Auto">
+			RowDefinitions="30,60, *">
 			<Panel Grid.Row="0">
 				<ExperimentalAcrylicBorder IsHitTestVisible="False">
 					<ExperimentalAcrylicBorder.Material>
@@ -61,13 +61,14 @@
 				</ExperimentalAcrylicBorder>
 				
 				<Grid ColumnDefinitions="Auto,*">
-					<Button 
+					<ToggleButton 
 						Background="Transparent"
 						Grid.Column="0"
 						Width="70"
 						Height="58"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
+						IsChecked="{Binding ShowMenu, Mode=TwoWay}"
 						>
 					
 						<icons:MaterialIcon 
@@ -77,7 +78,7 @@
 							Width="50"
 							Margin="5"
 							/>
-					</Button>
+					</ToggleButton>
 
 					<StackPanel 
 						Grid.Column="1" 
@@ -87,13 +88,42 @@
 				</Grid>
 			</Panel>
 			
-			<StackPanel
-				HorizontalAlignment="Center"
-				VerticalAlignment="Center"
+			<Grid
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch"	
+				Background="Transparent"
 				Grid.Row="2">
+
+				<Border Width="NaN"
+						HorizontalAlignment="Left"
+						BorderThickness="0.5"
+						Margin="5,5,0,5"
+						CornerRadius="10"
+						BorderBrush="White"
+						Background="Black"
+						Opacity="155">
+
+
+
+					
+					<StackPanel Classes.StackMenu="{Binding ShowMenu}"
+								bhv:MouseOverBehav.Command="{Binding MouseOverCommand}"
+								bhv:MouseLeaveBehav.Command="{Binding MouseLeaveCommand}">
+
+
+						<RadioButton Content="Synchronizer"
+							 Width="{Binding WidthMenu}"
+							 Foreground="White"
+							 FontSize="14"
+						     Classes="HamMenuOpen"
+							 Name="Home"
+							 />
+						
+					</StackPanel>
+					
+				</Border>
 				
-				
-			</StackPanel>
+			</Grid>
 			
 		</Grid>
 	</Panel>

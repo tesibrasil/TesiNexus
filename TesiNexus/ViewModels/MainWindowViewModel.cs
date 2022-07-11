@@ -4,12 +4,14 @@ using System.Reactive;
 using System.Windows.Input;
 using System.Windows;
 using TesiNexus.Views;
+using TesiNexus.ViewModels;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia;
 using Avalonia.Controls;
 using System.Threading.Tasks;
 using Avalonia.Input;
 using MessageBox.Avalonia;
+
 
 namespace TesiNexus.ViewModels
 {
@@ -74,6 +76,7 @@ namespace TesiNexus.ViewModels
 
         #region CurrentView  
         public SynchronizerViewModel Synchronizer { get; set; }
+        public TopMenuSynchronizerViewModel TopMenuSynchronizer { get; set; }
 
         private object _currentView;
 
@@ -82,7 +85,14 @@ namespace TesiNexus.ViewModels
             get { return _currentView; }
             set { this.RaiseAndSetIfChanged(ref _currentView, value); }
         }
-        
+
+        private object _TopMenuView;
+
+        public object TopMenuView
+        {
+            get { return _TopMenuView; }
+            set { this.RaiseAndSetIfChanged(ref _TopMenuView, value); }
+        }
         public ICommand ShowSynchronizerCommand { get; set; }
 
         #endregion
@@ -161,7 +171,11 @@ namespace TesiNexus.ViewModels
         {
             Synchronizer = new SynchronizerViewModel();
             CurrentView = Synchronizer;
+            TopMenuSynchronizer = new TopMenuSynchronizerViewModel();
+            TopMenuView = TopMenuSynchronizer;
         }
+
+
 
         #endregion
 

@@ -4,6 +4,7 @@ using System.Reactive;
 using System.Windows.Input;
 using System.Windows;
 using TesiNexus.Views;
+using TesiNexus.ViewModels;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia;
 using Avalonia.Controls;
@@ -11,13 +12,15 @@ using System.Threading.Tasks;
 using Avalonia.Input;
 using MessageBox.Avalonia;
 
+
 namespace TesiNexus.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
 
-    #region Hamburger Menu Properties
-        
+        #region Properties
+
+        #region HamburguerMenu
         private bool _showMenu;
 
         public bool ShowMenu
@@ -31,14 +34,26 @@ namespace TesiNexus.ViewModels
             }
         }
 
-        private int _widthMenu;
+        private int _widthButton;
 
-        public int WidthMenu
+        public int WidthButton
         {
-            get { return _widthMenu; }
+            get { return _widthButton; }
             set
             {
-                this.RaiseAndSetIfChanged(ref _widthMenu, value);
+                this.RaiseAndSetIfChanged(ref _widthButton, value);
+
+            }
+        }
+
+        private int _widthBorder;
+
+        public int WidthBorder
+        {
+            get { return _widthBorder; }
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _widthBorder, value);
 
             }
         }
@@ -57,26 +72,11 @@ namespace TesiNexus.ViewModels
 
         public ReactiveCommand<object, Unit> MouseOverCommand { get; set; }
         public ReactiveCommand<object, Unit> MouseLeaveCommand { get; set; }
-
         #endregion
 
-
-        public MainWindowViewModel()
-        {
-            #region Hamburger Menu Initialize
-
-            ShowMenu = false;
-            WidthMenu = 200;
-            Margin = new Thickness(215, 10, 10, 10);
-            MouseOverCommand = ReactiveCommand.CreateFromTask<object, Unit>(MouseOverCommandExecuted);
-            MouseLeaveCommand = ReactiveCommand.CreateFromTask<object, Unit>(MouseLeaveCommandExecuted); 
-
-            #endregion
-            Synchronizer = new SynchronizerViewModel();
-            CurrentView = Synchronizer;
-        }
-
+        #region CurrentView  
         public SynchronizerViewModel Synchronizer { get; set; }
+        public TopMenuSynchronizerViewModel TopMenuSynchronizer { get; set; }
 
         private object _currentView;
 
@@ -86,19 +86,59 @@ namespace TesiNexus.ViewModels
             set { this.RaiseAndSetIfChanged(ref _currentView, value); }
         }
 
+        private object _TopMenuView;
 
-      #region HamburgerMenuMethods
+        public object TopMenuView
+        {
+            get { return _TopMenuView; }
+            set { this.RaiseAndSetIfChanged(ref _TopMenuView, value); }
+        }
+        public ICommand ShowSynchronizerCommand { get; set; }
+
+        #endregion
+
+        #endregion
+
+
+        public MainWindowViewModel()
+        {
+            #region Hamburger Menu Initialize
+
+
+            CurrentView = null;
+            ShowMenu = false;
+            WidthButton = 200;
+            WidthBorder = 220;
+            Margin = new Thickness(255, 10, 10, 10);
+            MouseOverCommand = ReactiveCommand.CreateFromTask<object, Unit>(MouseOverCommandExecuted);
+            MouseLeaveCommand = ReactiveCommand.CreateFromTask<object, Unit>(MouseLeaveCommandExecuted);
+
+            #endregion
+
+            #region CurrentView
+
+            ShowSynchronizerCommand = ReactiveCommand.Create(ShowSynchronizer);
+            
+            #endregion
+        }
+
+
+        #region Methods
+
+        #region HamburgerMenu
         public void ActionMenu()
         {
             if (ShowMenu)
             {
-                WidthMenu = 50;
-                Margin = new Thickness(65, 10, 10, 10);
+                WidthButton = 50;
+                WidthBorder = 50;
+                Margin = new Thickness(85, 10, 10, 10);
             }
             else
             {
-                WidthMenu = 200;
-                Margin = new Thickness(215, 10, 10, 10);
+                WidthButton = 200;
+                WidthBorder = 220;
+                Margin = new Thickness(255, 10, 10, 10);
             }
         }
 
@@ -106,7 +146,8 @@ namespace TesiNexus.ViewModels
         {
             if (ShowMenu)
             {
-                WidthMenu = 200;
+                WidthButton = 200;
+                WidthBorder = 210;
             }
             return Unit.Default;
         }
@@ -115,12 +156,30 @@ namespace TesiNexus.ViewModels
         {
             if (ShowMenu)
             {
-                WidthMenu = 50;
+                WidthButton = 50;
+                WidthBorder = 50;
             }
             return Unit.Default;
-        } 
+        }
 
-      #endregion
+        #endregion
+
+
+        #region CurrentView
+        
+        public void ShowSynchronizer()
+        {
+            Synchronizer = new SynchronizerViewModel();
+            CurrentView = Synchronizer;
+            TopMenuSynchronizer = new TopMenuSynchronizerViewModel();
+            TopMenuView = TopMenuSynchronizer;
+        }
+
+
+
+        #endregion
+
+        #endregion
 
     }
 

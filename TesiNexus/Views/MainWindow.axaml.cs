@@ -35,10 +35,10 @@ namespace TesiNexus.Views
 
         private void SetMinimumLenghtForm()
         {
-            var window = this.GetSelfAndLogicalAncestors().OfType<Window>().First();
-            var screen = window.Screens.ScreenFromPoint(Position);
-            this.MinWidth = screen.WorkingArea.Width;
-            this.MinHeight = screen.WorkingArea.Height;     
+            //var window = this.GetSelfAndLogicalAncestors().OfType<Window>().First();
+            //var screen = window.Screens.ScreenFromPoint(Position);
+            //this.MinWidth = screen.WorkingArea.Width;
+            //this.MinHeight = screen.WorkingArea.Height;     
         }
 
 

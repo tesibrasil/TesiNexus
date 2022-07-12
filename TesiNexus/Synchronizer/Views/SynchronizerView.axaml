@@ -2,9 +2,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-			 xmlns:vm="using:TesiNexus.ViewModels"
+			 xmlns:vm="using:TesiNexus.Synchronizer.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="TesiNexus.Views.SynchronizerView">
+             x:Class="TesiNexus.Synchronizer.Views.SynchronizerView">
 
 	<Design.DataContext>
 		<vm:SynchronizerViewModel/>

@@ -31,7 +31,7 @@
     <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Views\SynchronizerView.axaml.cs">
+    <Compile Update="Synchronizer\Views\SynchronizerView.axaml.cs">
       <DependentUpon>SynchronizerView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>

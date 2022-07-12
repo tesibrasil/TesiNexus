@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace TesiNexus.Views
+namespace TesiNexus.Synchronizer.Views
 {
     public partial class TopMenuSynchronizerView : UserControl
     {

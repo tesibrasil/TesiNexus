@@ -4,14 +4,13 @@ using System.Reactive;
 using System.Windows.Input;
 using System.Windows;
 using TesiNexus.Views;
-using TesiNexus.ViewModels;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia;
 using Avalonia.Controls;
 using System.Threading.Tasks;
 using Avalonia.Input;
 using MessageBox.Avalonia;
-
+using TesiNexus.Synchronizer.ViewModels;
 
 namespace TesiNexus.ViewModels
 {

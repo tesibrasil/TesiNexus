@@ -11,5 +11,6 @@ namespace TesiNexus.Nexus.Models
         public string IpAdress { get; set; }
         public string UserLogin { get; set; }
         public string Password { get; set; }
+
     }
 }

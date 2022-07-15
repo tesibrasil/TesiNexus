@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TesiNexus.Helpers;
 using TesiNexus.ViewModels;
+using System.Threading;
+using Avalonia.Media;
 
 namespace TesiNexus.Nexus.ViewModels
 {
@@ -20,11 +22,14 @@ namespace TesiNexus.Nexus.ViewModels
     {
         public DataBaseConfigViewModel()
         {
-            Testar = ReactiveCommand.CreateFromTask(async () => { TestarConexao(); });
-            Salvar = ReactiveCommand.CreateFromTask(async () => { SalvarConexao(); });
-            Ambiente = ReactiveCommand.CreateFromTask(async () => { PrepararAmbiente(); });
-            Fechar = ReactiveCommand.CreateFromTask(async () => { FecharTela(); });
-
+            Testar = ReactiveCommand.CreateFromTask(async () => {ConnectionTest(); });
+            Salvar = ReactiveCommand.CreateFromTask(async () => { SaveConnection(); });
+            Ambiente = ReactiveCommand.CreateFromTask(async () => { PrepareEnvironment(); });
+            Fechar = ReactiveCommand.CreateFromTask(async () => { CloseApp(); });
+            EnabledScreen = true;
+         
+            SolidColorBrush myBrush = new SolidColorBrush(Colors.Red);
+            ColorText = myBrush;
             TesteOk = false;
             HabAmbiente = false;
         }
@@ -69,6 +74,30 @@ namespace TesiNexus.Nexus.ViewModels
             set { this.RaiseAndSetIfChanged(ref _habAmbiente, value); }
         }
 
+        private bool _enabledProgress;
+
+        public bool EnabledProgress
+        {
+            get { return _enabledProgress; }
+            set { this.RaiseAndSetIfChanged(ref _enabledProgress, value); }
+        }
+
+        private bool _enabledScreen;
+
+        public bool EnabledScreen
+        {
+            get { return _enabledScreen; }
+            set { this.RaiseAndSetIfChanged(ref _enabledScreen, value); }
+        }
+
+        private ISolidColorBrush _color;
+
+        public ISolidColorBrush ColorText
+        {
+            get { return _color; }
+            set { this.RaiseAndSetIfChanged(ref _color, value); }
+        }
+
         public bool TesteOk { get; set; }
         public ICommand Testar { get; set; }
         public ICommand Ambiente { get; set; }
@@ -76,47 +105,65 @@ namespace TesiNexus.Nexus.ViewModels
         public ICommand Fechar { get; set; }
         public IDbTransaction CurrentTransaction { get; private set; }
 
-        public void TestarConexao()
+  
+        public async Task ConnectionTest()
         {
-            string connStrFonte = $@"Data Source={IP};User ID={User};Password={Password};Initial Catalog=WANDA;";
+            var th = new Thread(() => {
+                EnabledScreen = false;
+                EnabledProgress = true;
+                ColorText = Brushes.Yellow;
+                
+                Mensagem = "TESTE DE CONEXÃO!";
 
-            Mensagem = "TESTANDO ESSA BOSTA!";
+                string connStrFonte = $@"Data Source={IP};User ID={User};Password={Password};Initial Catalog=VVAND4;";
 
-            using (SqlConnection conn = new SqlConnection(connStrFonte))
-            {
-                if (!IsAvailable(conn))
+
+                using (SqlConnection conn = new SqlConnection(connStrFonte))
                 {
-                    connStrFonte = $@"Data Source={IP};User ID={User};Password={Password};";
-
-                    using (SqlConnection newconn = new SqlConnection(connStrFonte))
+                    if (!IsAvailable(conn))
                     {
-                        if (!IsAvailable(newconn))
+                        connStrFonte = $@"Data Source={IP};User ID={User};Password={Password};";
+
+                        using (SqlConnection newconn = new SqlConnection(connStrFonte))
                         {
-                            Mensagem = "NÃO CONSEGUI ACESSAR ESSA CARALHA DE BANCO DE DADOS!";
+                            if (!IsAvailable(newconn))
+                            {
+                                ColorText = Brushes.Red;
+                                Mensagem = "FALHA AO TENTAR CONECTAR O BANCO DE DADOS!";
+                            }
+                            else
+                            {
+                                ColorText = Brushes.Yellow;
+                                Mensagem = "SEU AMBIENTE NÃO ESTÁ PRERADO PARA RODAR O TESI NEXUS, CLIQUE EM PREPARAR AMBIENTE E TESTE NOVAMENTE A CONEXÃO.";
+                                HabAmbiente = true;
+                            }
                         }
-                        else
-                        {
-                            Mensagem = "SEU AMBIENTE NÃO ESTÁ PRERADO PARA RODAR O TESI NEXUS, CLIQUE EM PREPARAR AMBIENTE E TESTE NOVAMENTE A CONEXÃO.";
-                            HabAmbiente = true;
-                        }
+
+                        TesteOk = false;
+
                     }
-
-                    TesteOk = false;
-
+                    else
+                    {
+                        ColorText = Brushes.LightGreen;
+                        Mensagem = "SUCESSO!";
+                        TesteOk = true;
+                    }
                 }
-                else
-                {
-                    Mensagem = "AI SIM MULEKE!";
-                    TesteOk = true;
-                }
-            }
+
+                EnabledProgress = false;
+                EnabledScreen = true;
+            });
+
+            th.Start();
+            
+           
         }
 
-        public void SalvarConexao()
+        public void SaveConnection()
         {
             if (!TesteOk)
             {
-                Mensagem = "SEU ULTIMO TESTE DE CONEXÃO NÃO FOI BEM SUCEDIDO, NÃO VAI ROLAR CRIAR UM ARQUIVO DE CONFIGURAÇÃO";
+                Mensagem = "SEU ULTIMO TESTE DE CONEXÃO NÃO FOI BEM SUCEDIDO. ARQUIVO DE CONFIGURAÇÃO NÃO FOI CRIADO!";
                 return;
             }
 
@@ -128,7 +175,8 @@ namespace TesiNexus.Nexus.ViewModels
 
             json = Crypto.Encrypt(json);
 
-            string folder = "C:\\ProgramData\\NexusConfig";
+            string programData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            string folder = programData + "\\NexusConfig";
             string arquivo = Path.Combine(folder, "conexao.json");
 
             Directory.CreateDirectory(folder);
@@ -141,51 +189,42 @@ namespace TesiNexus.Nexus.ViewModels
 
         }
 
-        public void FecharTela()
-        {
 
-        }
-
-        public void PrepararAmbiente()
+        public void PrepareEnvironment()
         {
 
             var connStrFonte = $@"Data Source={IP};User ID={User};Password={Password};";
 
-            using(SqlConnection conn = new SqlConnection(connStrFonte))
+            using (SqlConnection conn = new SqlConnection(connStrFonte))
             {
                 conn.Open();
 
                 try
                 {
-                    conn.Query($"CREATE DATABASE WANDA"
+                    conn.Execute($"CREATE DATABASE VVAND4"
                                           , transaction: CurrentTransaction
                                           , commandType: CommandType.Text);
 
-                    conn.Query<string>($@"CREATE TABLE WANDA.[dbo].USUARIOS (ID INT IDENTITY (1,1), 
-                                          					   Nome  VARCHAR(500), 
+                    conn.Query<string>($@"CREATE TABLE VVAND4.[dbo].USERS (ID INT IDENTITY (1,1), 
+                                          					   Name  VARCHAR(500), 
                                           					   Login  VARCHAR(50), 
-                                          					   Senha  VARCHAR (1024), 
-                                          					   Inativo  bit DEFAULT(0)
+                                          					   Password  VARCHAR (1024), 
+                                          					   Inactive  bit DEFAULT(0)
                                           					   )                                          
-
-                                          CREATE TABLE WANDA.[dbo].DESTINOS ( ID INT IDENTITY (1,1), 
-                                          						Nome  VARCHAR(500), 
+                                          CREATE TABLE VVAND4.[dbo].DESTINATIONS ( ID INT IDENTITY (1,1), 
+                                          						Name  VARCHAR(500), 
                                           						Source  VARCHAR(500),
-                                          						Usuario VARCHAR(500), 
-                                          						Senha  VARCHAR (1024)
+                                          						UserName VARCHAR(500), 
+                                          						Password  VARCHAR (1024)
                                           						)"
-                    ,transaction: CurrentTransaction
-                    ,commandType: CommandType.Text);
+                    , transaction: CurrentTransaction
+                    , commandType: CommandType.Text);
 
-
-
-                    Mensagem = "AGORA SIM LELEK! AMBIENTE CONFIGURADO, TESTE E SALVE A CONEXAO";
-
+                    Mensagem = "SUCESSO! AMBIENTE CONFIGURADO, TESTE E SALVE A CONEXAO";
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
-                    throw;
+                    Mensagem = ex.Message;
                 }
             }
         }

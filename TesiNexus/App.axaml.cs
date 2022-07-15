@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using System;
 using System.Data.SqlClient;
 using System.IO;
 using TesiNexus.Helpers;
@@ -37,6 +38,7 @@ namespace TesiNexus
                 }
                 else
                 {
+
                     desktop.MainWindow = new MainWindow
                     {
                         DataContext = new MainWindowViewModel(),
@@ -53,9 +55,9 @@ namespace TesiNexus
 
         private static bool CheckConnectionFile()
         {
+            string programData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
 
-
-            string curFile = "C:/ProgramData/NexusConfig/conexao.json";
+            string curFile = programData + "\\NexusConfig\\conexao.json";
             if (File.Exists(curFile))
             {
                 string json = File.ReadAllText(curFile);
@@ -74,15 +76,14 @@ namespace TesiNexus
 
         private static void CheckingConnection()
         {
-            string connStrFonte = $@"Data Source={((App)App.Current).RunningNexus.IpAdress};User ID={((App)App.Current).RunningNexus.UserLogin};Password={((App)App.Current).RunningNexus.Password};Initial Catalog=WANDA;";
+            string connStrFonte = $@"Data Source={((App)App.Current).RunningNexus.IpAdress};User ID={((App)App.Current).RunningNexus.UserLogin};Password={((App)App.Current).RunningNexus.Password};Initial Catalog=VVAND4;";
        
                     
             using (SqlConnection conn = new SqlConnection(connStrFonte))
             {
                 if (!IsAvailable(conn))
                 {
-                     var msg = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow("CARALHO", "CONFIGURA O BANCO DE DADOS PUTO");
-                     msg.Show();
+                    //
                 }
             }
 

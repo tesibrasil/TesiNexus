@@ -10,7 +10,9 @@
 		<StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml"/>
 		<StyleInclude Source="/Styles/HamburgerMenuStyle.axaml"/>
 		<StyleInclude Source="/Styles/ButtonStyle.axaml"/>
-		<FluentTheme Mode="Dark" />
+		<FluentTheme Mode="Light" />
     </Application.Styles>
+
+	
 
 </Application>

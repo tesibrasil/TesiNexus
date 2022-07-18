@@ -38,10 +38,9 @@ namespace TesiNexus
                 }
                 else
                 {
-
-                    desktop.MainWindow = new MainWindow
+                    desktop.MainWindow = new StartUpView
                     {
-                        DataContext = new MainWindowViewModel(),
+                        DataContext = new StartUpViewModel(),
                     };
 
                 }

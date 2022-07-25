@@ -34,6 +34,8 @@ namespace TesiNexus.Nexus.ViewModels
             HabAmbiente = false;
         }
 
+        #region Properties
+
         private string _ip;
 
         public string IP
@@ -99,20 +101,27 @@ namespace TesiNexus.Nexus.ViewModels
         }
 
         public bool TesteOk { get; set; }
+        #endregion
+
+        #region Commands
+
         public ICommand Testar { get; set; }
         public ICommand Ambiente { get; set; }
         public ICommand Salvar { get; set; }
         public ICommand Fechar { get; set; }
         public IDbTransaction CurrentTransaction { get; private set; }
 
-  
+        #endregion
+
+        #region Methods
         public async Task ConnectionTest()
         {
-            var th = new Thread(() => {
+            var th = new Thread(() =>
+            {
                 EnabledScreen = false;
                 EnabledProgress = true;
                 ColorText = Brushes.Yellow;
-                
+
                 Mensagem = "TESTE DE CONEXÃO!";
 
                 string connStrFonte = $@"Data Source={IP};User ID={User};Password={Password};Initial Catalog=VVAND4;";
@@ -155,8 +164,8 @@ namespace TesiNexus.Nexus.ViewModels
             });
 
             th.Start();
-            
-           
+
+
         }
 
         public void SaveConnection()
@@ -249,6 +258,7 @@ namespace TesiNexus.Nexus.ViewModels
             var lifetime = (IClassicDesktopStyleApplicationLifetime)Application.Current.ApplicationLifetime;
 
             lifetime.Shutdown();
-        }
+        } 
+        #endregion
     }
 }

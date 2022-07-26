@@ -164,7 +164,7 @@
 					Name="Main"
 					Content="{Binding CurrentView, Mode=TwoWay}"
 					>
-
+					
 				</ContentControl>
 			</Grid>
 

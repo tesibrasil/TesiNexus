@@ -83,7 +83,7 @@ namespace TesiNexus.Nexus.ViewModels
         public bool VerificarUsuario()
         {
 
-            string conectionString = $@"Data Source={((App)App.Current).RunningNexus.IpAdress};User ID={((App)App.Current).RunningNexus.UserLogin};Password={((App)App.Current).RunningNexus.Password};Initial Catalog=WANDA;";
+            string conectionString = $@"Data Source={((App)App.Current).RunningNexus.IpAdress};User ID={((App)App.Current).RunningNexus.UserLogin};Password={((App)App.Current).RunningNexus.Password};Initial Catalog=VVAND4;";
 
             using (SqlConnection conn = new SqlConnection(conectionString))
             {
@@ -95,7 +95,7 @@ namespace TesiNexus.Nexus.ViewModels
                  var user =  conn.Query<bool>(@"LoginNexusUser", param: new
                  {
                      login = User,
-                     senha = Password
+                     password = Password
                  }, transaction: CurrentTransaction
                   , commandType: CommandType.StoredProcedure);
 

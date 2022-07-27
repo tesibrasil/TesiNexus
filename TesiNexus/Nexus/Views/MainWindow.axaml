@@ -73,7 +73,7 @@
 				</ExperimentalAcrylicBorder>
 
 				<Grid ColumnDefinitions="*,1,*">
-					<ToggleButton Classes="h"
+					<ToggleButton 
 						Background="Transparent"
 						Grid.Column="0"
 						Width="70"
@@ -81,6 +81,7 @@
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
 						IsChecked="{Binding ShowMenu, Mode=TwoWay}"
+						
 						>
 						<icons:MaterialIcon
 							Kind="Menu"

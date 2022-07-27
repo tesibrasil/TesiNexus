@@ -5,7 +5,8 @@
 			 xmlns:vm="using:TesiNexus.Synchronizer.ViewModels"
 			 xmlns:icons="using:Material.Icons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="60"
-             x:Class="TesiNexus.Synchronizer.Views.TopMenuSynchronizerView">
+             x:Class="TesiNexus.Synchronizer.Views.TopMenuSynchronizerView"
+			 >
 
 	<Design.DataContext>
 		<vm:TopMenuSynchronizerViewModel/>
@@ -25,7 +26,7 @@
 			Margin="10"
 			Background="Transparent"
 			HorizontalAlignment="Left"
-			ToolTip.Tip="Adicionar Servidor Fonte">
+			ToolTip.Tip="Adicionar Servidor Destino">
 			<icons:MaterialIcon
 				Kind="PlusNetwork"
 				Foreground="White"
@@ -34,22 +35,7 @@
 				Margin="5"/>
 		</Button>
 
-		<Button
-			Grid.Column="1"
-			Name="btnAddDestiny"
-			Width="40"
-			Height="40"
-			Margin="10"
-			Background="Transparent"
-			HorizontalAlignment="Left"
-			ToolTip.Tip="Adicionar Servidor Destino">
-			<icons:MaterialIcon
-				Kind="PlusNetworkOutline"
-				Foreground="White"
-				Height="30"
-				Width="30"
-				Margin="5"/>
-		</Button>
+		
 	</Grid>
 
 </UserControl>

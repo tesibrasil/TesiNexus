@@ -3,30 +3,93 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:vm="using:TesiNexus.Synchronizer.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="600"
              x:Class="TesiNexus.Synchronizer.Views.SynchronizerView">
 
 	<Design.DataContext>
 		<vm:SynchronizerViewModel/>
 	</Design.DataContext>
 
-	<Grid RowDefinitions="*">
-		<Grid ColumnDefinitions="*,*">
-			<Panel Background="Red"
+
+		<Grid ColumnDefinitions="*,auto">
+			<Panel Classes="PrimaryGray"
 				   Name="pnlLeft">
-				<Label Content="Left"
-					   HorizontalAlignment="Center"
-					   VerticalAlignment="Center"></Label>
+
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="100"/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+
+					<Panel 
+						Grid.Row="0"
+						Classes="SecondGray"
+						Margin="10">
+						
+						<Grid >
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition  Width="*" />
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+
+							<ComboBox 
+								 HorizontalAlignment="Stretch" Grid.Column="0"
+								 VerticalAlignment="Center"
+								 Margin="10,0,0,0"
+								 Classes="CustomComboBox"
+								 />
+							
+
+							<Button
+								Grid.Column="1" 
+								Width="150"
+								Height="50"
+								Margin="10"
+								Content="Novo Grupo"
+								HorizontalContentAlignment="Center"
+								VerticalContentAlignment="Center"
+								Classes="PrimaryGrayColor ColorFont">
+								
+							</Button>
+						</Grid>
+					
+					</Panel>
+					
+					<Panel
+						Grid.Row="1"
+						Background="#525353"
+						Margin="10 0 10 10">
+
+						<Grid ColumnDefinitions="*,100">
+			
+						</Grid>
+
+					</Panel>
+				</Grid>
+
+				
 			</Panel>
+			
 			<Panel
 				Name="pnlRight"
 				Grid.Column="1"
-				Background="Yellow">
+				Background="DarkGray"
+				MinWidth="500">
 				<Label Content="Right"
 					   HorizontalAlignment="Center"
 					   VerticalAlignment="Center"></Label>
+
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					
+					
+					
+				</Grid>
 			</Panel>
 		</Grid>
 
-	</Grid>
+
 </UserControl>

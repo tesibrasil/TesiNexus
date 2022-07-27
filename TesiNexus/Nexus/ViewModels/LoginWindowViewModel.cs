@@ -22,6 +22,9 @@ namespace TesiNexus.Nexus.ViewModels
         {
             EntrarCommand = ReactiveCommand.CreateFromTask(async () => { Entrar(); });
             SairCommand = ReactiveCommand.CreateFromTask(async () => { Sair(); });
+            User = "Felipe";
+            Password = "nautilus";
+
         }
 
         private string _user;

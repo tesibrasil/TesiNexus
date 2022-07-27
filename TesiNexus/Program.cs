@@ -26,7 +26,7 @@ namespace TesiNexus
         {
             var builder = BuildAvaloniaApp();
 
-            GoogleAPI.DownloadFileAsync("TesteAPI", "NewDesign_01.png");
+            //GoogleAPI.DownloadFileAsync("TesteAPI", "NewDesign_01.png");
 
             return builder.StartWithClassicDesktopLifetime(args);
 

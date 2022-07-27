@@ -126,38 +126,31 @@ namespace TesiNexus.Nexus.ViewModels
 
                 string connStrFonte = $@"Data Source={IP};User ID={User};Password={Password};Initial Catalog=VVAND4;";
 
-
-                using (SqlConnection conn = new SqlConnection(connStrFonte))
+                if (!DataBaseHelper.CheckingConnection(connStrFonte))
                 {
-                    if (!IsAvailable(conn))
+                    connStrFonte = $@"Data Source={IP};User ID={User};Password={Password};";
+
+                    if (!DataBaseHelper.CheckingConnection(connStrFonte))
                     {
-                        connStrFonte = $@"Data Source={IP};User ID={User};Password={Password};";
-
-                        using (SqlConnection newconn = new SqlConnection(connStrFonte))
-                        {
-                            if (!IsAvailable(newconn))
-                            {
-                                ColorText = Brushes.Red;
-                                Mensagem = "FALHA AO TENTAR CONECTAR O BANCO DE DADOS!";
-                            }
-                            else
-                            {
-                                ColorText = Brushes.Yellow;
-                                Mensagem = "SEU AMBIENTE NÃO ESTÁ PRERADO PARA RODAR O TESI NEXUS, CLIQUE EM PREPARAR AMBIENTE E TESTE NOVAMENTE A CONEXÃO.";
-                                HabAmbiente = true;
-                            }
-                        }
-
-                        TesteOk = false;
-
+                        ColorText = Brushes.Red;
+                        Mensagem = "FALHA AO TENTAR CONECTAR O BANCO DE DADOS!";
                     }
                     else
                     {
-                        ColorText = Brushes.LightGreen;
-                        Mensagem = "SUCESSO!";
-                        TesteOk = true;
+                        ColorText = Brushes.Yellow;
+                        Mensagem = "SEU AMBIENTE NÃO ESTÁ PRERADO PARA RODAR O TESI NEXUS, CLIQUE EM PREPARAR AMBIENTE E TESTE NOVAMENTE A CONEXÃO.";
+                        HabAmbiente = true;
                     }
+
+                    TesteOk = false;
                 }
+                else
+                {
+                    ColorText = Brushes.LightGreen;
+                    Mensagem = "SUCESSO!";
+                    TesteOk = true;
+                }
+
 
                 EnabledProgress = false;
                 EnabledScreen = true;
@@ -188,8 +181,17 @@ namespace TesiNexus.Nexus.ViewModels
             string folder = programData + "\\NexusConfig";
             string arquivo = Path.Combine(folder, "conexao.json");
 
-            Directory.CreateDirectory(folder);
-            File.Create(arquivo).Dispose();
+            if (File.Exists(arquivo))
+            {
+                File.Delete(arquivo);
+                File.Create(arquivo).Dispose();
+            }
+            else
+            {
+                Directory.CreateDirectory(folder);
+                File.Create(arquivo).Dispose();
+            }
+            
             File.WriteAllText(arquivo, json);
 
             Mensagem = "SALVOU!";
@@ -197,7 +199,6 @@ namespace TesiNexus.Nexus.ViewModels
             CloseApp();
 
         }
-
 
         public void PrepareEnvironment()
         {
@@ -238,20 +239,6 @@ namespace TesiNexus.Nexus.ViewModels
             }
         }
 
-        private static bool IsAvailable(SqlConnection connection)
-        {
-            try
-            {
-                connection.Open();
-                connection.Close();
-            }
-            catch (SqlException)
-            {
-                return false;
-            }
-
-            return true;
-        }
 
         public void CloseApp()
         {

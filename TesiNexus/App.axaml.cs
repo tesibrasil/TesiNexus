@@ -63,45 +63,23 @@ namespace TesiNexus
                 json = Crypto.Decrypt(json);
 
                 ((App)App.Current).RunningNexus = Newtonsoft.Json.JsonConvert.DeserializeObject<NexusApp>(json);
-                CheckingConnection();
-                return true;
+
+                string connStrFonte = $@"Data Source={((App)App.Current).RunningNexus.IpAdress};User ID={((App)App.Current).RunningNexus.UserLogin};Password={((App)App.Current).RunningNexus.Password};Initial Catalog=VVAND4;";
+                if(DataBaseHelper.CheckingConnection(connStrFonte))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                
             }
             else
             {
                 return false;
-
             }
         }
 
-        private static void CheckingConnection()
-        {
-            string connStrFonte = $@"Data Source={((App)App.Current).RunningNexus.IpAdress};User ID={((App)App.Current).RunningNexus.UserLogin};Password={((App)App.Current).RunningNexus.Password};Initial Catalog=VVAND4;";
-       
-                    
-            using (SqlConnection conn = new SqlConnection(connStrFonte))
-            {
-                if (!IsAvailable(conn))
-                {
-                    //
-                    
-                }
-            }
-
-        }
-
-        private static bool IsAvailable( SqlConnection connection)
-        {
-            try
-            {
-                connection.Open();
-                connection.Close();
-            }
-            catch (SqlException)
-            {
-                return false;
-            }
-
-            return true;
-        }
     }
 }

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Avalonia.Input;
 using MessageBox.Avalonia;
 using TesiNexus.Synchronizer.ViewModels;
+using TesiNexus.Configuration.ViewModels;
 
 namespace TesiNexus.ViewModels
 {
@@ -74,8 +75,10 @@ namespace TesiNexus.ViewModels
         #endregion
 
         #region CurrentView  
-        public SynchronizerViewModel Synchronizer { get; set; }
-        public TopMenuSynchronizerViewModel TopMenuSynchronizer { get; set; }
+        public SynchronizerViewModel SynchronizerVM { get; set; }
+        public TopMenuSynchronizerViewModel TopMenuSynchronizerVM { get; set; }
+        public ConfigurationViewModel ConfigurationVM { get; set; }
+        public TopMenuConfigurationViewModel TopMenuConfigurationVM { get; set; }
 
         private object _currentView;
 
@@ -92,7 +95,12 @@ namespace TesiNexus.ViewModels
             get { return _TopMenuView; }
             set { this.RaiseAndSetIfChanged(ref _TopMenuView, value); }
         }
+
+        #region command
         public ICommand ShowSynchronizerCommand { get; set; }
+
+        public ICommand ShowConfigurationCommand { get; set; }
+        #endregion
 
         #endregion
 
@@ -116,8 +124,8 @@ namespace TesiNexus.ViewModels
 
             #region CurrentView
 
-            ShowSynchronizerCommand = ReactiveCommand.Create(ShowSynchronizer);
-            
+            ShowSynchronizerCommand = ReactiveCommand.Create(ShowSynchronizerVM);
+            ShowConfigurationCommand = ReactiveCommand.Create(ShowConfigurationVM);
             #endregion
         }
 
@@ -166,14 +174,21 @@ namespace TesiNexus.ViewModels
 
         #region CurrentView
         
-        public void ShowSynchronizer()
+        public void ShowSynchronizerVM()
         {
-            Synchronizer = new SynchronizerViewModel();
-            CurrentView = Synchronizer;
-            TopMenuSynchronizer = new TopMenuSynchronizerViewModel();
-            TopMenuView = TopMenuSynchronizer;
+            SynchronizerVM = new SynchronizerViewModel();
+            CurrentView = SynchronizerVM;
+            TopMenuSynchronizerVM = new TopMenuSynchronizerViewModel();
+            TopMenuView = TopMenuSynchronizerVM;
         }
 
+        public void ShowConfigurationVM()
+        {
+            ConfigurationVM = new ConfigurationViewModel();
+            CurrentView = ConfigurationVM; ;
+            TopMenuConfigurationVM = new TopMenuConfigurationViewModel();
+            TopMenuView = TopMenuConfigurationVM;
+        }
 
 
         #endregion

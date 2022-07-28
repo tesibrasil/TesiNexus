@@ -14,6 +14,11 @@ namespace TesiNexus.Nexus.Views
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
+
+            this.Get<Control>("DataBaseScreen").PointerPressed += (i, e) =>
+            {
+                PlatformImpl?.BeginMoveDrag(e);
+            };
         }
     }
 }

@@ -18,9 +18,16 @@
 		<Setter Property="Background" Value="#818282" />
 	</Style>
 
+	<Style Selector="TextBox.CustomTextBox">
+		<Style.Setters>
+			<Setter Property="FontSize" Value="12" />
+		</Style.Setters>
+	</Style>
 
 	<!--TextBox-->
 	
+	<!--ComboBox-->
+
 	<Style Selector="ComboBox.CustomComboBox">
 		<Style.Setters>
 			<Setter Property="Background" Value="#818282" />
@@ -31,10 +38,6 @@
 		<Setter Property="Background" Value="#818282" />
 	</Style>
 	
-	<!--ComboBox-->
-
-
-
 	<!--ComboBox-->
 
 

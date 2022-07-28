@@ -39,7 +39,7 @@
 
 
 	<!--Panel-->
-
+	
 	<Style Selector="Panel.PrimaryGray">
 		<Style.Setters>
 			<Setter Property="Background" Value="#8a8b8b" />
@@ -54,7 +54,33 @@
 		</Style.Setters>
 	</Style>
 
+	<Style Selector="Panel.ThirdGray">
+		<Style.Setters>
+			<Setter Property="Background" Value="#656565" />
+
+		</Style.Setters>
+	</Style>
+
+	<Style Selector="Panel.FourthGray">
+		<Style.Setters>
+			<Setter Property="Background" Value="#3c3c3c" />
+
+		</Style.Setters>
+	</Style>
+
 	<!--Panel-->
+	
+	<!--Border-->
+
+
+	<Style Selector="Border.FourthGray">
+		<Style.Setters>
+			<Setter Property="Background" Value="#3c3c3c" />
+
+		</Style.Setters>
+	</Style>
+	
+	<!--Border-->
 
 	<!--Button-->
 

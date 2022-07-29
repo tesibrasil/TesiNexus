@@ -75,7 +75,13 @@
 	
 	<!--Border-->
 
+	<Style Selector="Border.ThirdGray">
+		<Style.Setters>
+			<Setter Property="Background" Value="#656565" />
 
+		</Style.Setters>
+	</Style>
+	
 	<Style Selector="Border.FourthGray">
 		<Style.Setters>
 			<Setter Property="Background" Value="#3c3c3c" />
@@ -100,4 +106,24 @@
 	</Style>
 
 	<!--Button-->
+
+	<!--ToggleButon-->
+
+	<Style Selector="ToggleButton.CustomToggleButton:checked /template/ ContentPresenter#PART_ContentPresenter">
+		<Style.Setters>
+			<Setter Property="Background" Value="Transparent"></Setter>
+		</Style.Setters>
+	</Style>
+	<Style Selector="ToggleButton.CustomToggleButton">
+		<Style.Setters>
+			<Setter Property="Background" Value="Transparent"></Setter>
+		</Style.Setters>
+	</Style>
+	
+	<!--ToggleButton-->
+	
+	
+	
 </Styles>
+
+

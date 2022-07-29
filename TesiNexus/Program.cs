@@ -28,6 +28,9 @@ namespace TesiNexus
 
             //GoogleAPI.DownloadFileAsync("TesteAPI", "NewDesign_01.png");
 
+            //var login = Crypto.Encrypt("admin");
+            //var password = Crypto.Encrypt("nautilus");
+
             return builder.StartWithClassicDesktopLifetime(args);
 
         }

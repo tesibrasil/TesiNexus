@@ -10,7 +10,7 @@
         Title="TesiNexus"
 		Name="TesiNexus" 
 	    TransparencyLevelHint="AcrylicBlur"
-        Background="#8a8b8b"
+        Background="Black"
 		ExtendClientAreaToDecorationsHint="True"
 		xmlns:bhv="clr-namespace:TesiNexus.Behaviors"
 		WindowStartupLocation="CenterScreen" WindowState="Maximized" >	
@@ -21,15 +21,16 @@
 	
 	
 	<Grid>
-		<!--<ExperimentalAcrylicBorder IsHitTestVisible="False">
+		<ExperimentalAcrylicBorder IsHitTestVisible="False">
 			<ExperimentalAcrylicBorder.Material>
 				<ExperimentalAcrylicMaterial
 					BackgroundSource="Digger"
-					TintColor="DarkGray"
-					TintOpacity="1"
-					MaterialOpacity="0.60" />
+					TintColor="Black"
+					TintOpacity="10"
+					MaterialOpacity="0.75" />
 			</ExperimentalAcrylicBorder.Material>
-		</ExperimentalAcrylicBorder>-->
+
+		</ExperimentalAcrylicBorder>
 
 		<Image
 			Source="/Assets/TesiNexusBeW.png"
@@ -43,10 +44,6 @@
 
 		<Grid Name="gridCenter"
 			RowDefinitions="30, 60, *, 60">
-			<Panel 
-				Grid.Row="0"
-				Classes="FourthGray">
-			</Panel>
 
 			<!--Header-->
 			<Panel
@@ -57,7 +54,7 @@
 
 				<Grid ColumnDefinitions="*,1,*">
 					<ToggleButton 
-						Background="Transparent"
+						Classes="CustomToggleButton"
 						Grid.Column="0"
 						Width="70"
 						Height="58"
@@ -106,7 +103,7 @@
 						BorderThickness="0.5"
 						Margin="20,5,0,5"
 						CornerRadius="10"
-						Classes="FourthGray"
+						Classes="ThirdGray"
 						ZIndex="10"
 						>
 

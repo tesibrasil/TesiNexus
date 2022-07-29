@@ -24,7 +24,7 @@ namespace TesiNexus.Nexus.ViewModels
         {
             Testar = ReactiveCommand.CreateFromTask(async () => {ConnectionTest(); });
             Salvar = ReactiveCommand.CreateFromTask(async () => { SaveConnection(); });
-            Ambiente = ReactiveCommand.CreateFromTask(async () => { PrepareEnvironment(); });
+            Ambiente = ReactiveCommand.CreateFromTask(async () => { PrepareEnvironmentAsync(); });
             Fechar = ReactiveCommand.CreateFromTask(async () => { CloseApp(); });
             EnabledScreen = true;
          
@@ -200,8 +200,9 @@ namespace TesiNexus.Nexus.ViewModels
 
         }
 
-        public void PrepareEnvironment()
+        public async Task PrepareEnvironmentAsync()
         {
+            await GoogleAPI.DownloadDataBaseAsync();
 
             var connStrFonte = $@"Data Source={IP};User ID={User};Password={Password};";
 
@@ -211,24 +212,35 @@ namespace TesiNexus.Nexus.ViewModels
 
                 try
                 {
-                    conn.Execute($"CREATE DATABASE VVAND4"
-                                          , transaction: CurrentTransaction
-                                          , commandType: CommandType.Text);
+                    conn.Query<string>($@"DECLARE @path as varchar(500) = (SELECT substring(physical_name,0,(LEN(physical_name)-9))FROM sys.master_files WHERE name = 'master')
+                                          DECLARE @mdfPath as varchar(500) = @path + 'VVAND4.mdf'
+                                          DECLARE @ldfPath as varchar(500) = @path + 'VVAND4_log.ldf'
 
-                    conn.Query<string>($@"CREATE TABLE VVAND4.[dbo].USERS (ID INT IDENTITY (1,1), 
-                                          					   Name  VARCHAR(500), 
-                                          					   Login  VARCHAR(50), 
-                                          					   Password  VARCHAR (1024), 
-                                          					   Inactive  bit DEFAULT(0)
-                                          					   )                                          
-                                          CREATE TABLE VVAND4.[dbo].DESTINATIONS ( ID INT IDENTITY (1,1), 
-                                          						Name  VARCHAR(500), 
-                                          						Source  VARCHAR(500),
-                                          						UserName VARCHAR(500), 
-                                          						Password  VARCHAR (1024)
-                                          						)"
+                                          RESTORE DATABASE [VVAND4] FROM  DISK = N'C:\ProgramData\NexusConfig\Temp\VVAND4.bak' WITH  FILE = 1,  
+                                          MOVE N'VVAND4' TO @mdfPath,  
+                                          MOVE N'VVAND4_log' TO @ldfPath,  
+                                          NOUNLOAD,  REPLACE,  STATS = 5"
                     , transaction: CurrentTransaction
                     , commandType: CommandType.Text);
+
+                    //conn.Execute($"CREATE DATABASE VVAND4"
+                    //                      , transaction: CurrentTransaction
+                    //                      , commandType: CommandType.Text);
+
+                    //conn.Query<string>($@"CREATE TABLE VVAND4.[dbo].USERS (ID INT IDENTITY (1,1), 
+                    //                      					   Name  VARCHAR(500), 
+                    //                      					   Login  VARCHAR(50), 
+                    //                      					   Password  VARCHAR (1024), 
+                    //                      					   Inactive  bit DEFAULT(0)
+                    //                      					   )                                          
+                    //                      CREATE TABLE VVAND4.[dbo].DESTINATIONS ( ID INT IDENTITY (1,1), 
+                    //                      						Name  VARCHAR(500), 
+                    //                      						Source  VARCHAR(500),
+                    //                      						UserName VARCHAR(500), 
+                    //                      						Password  VARCHAR (1024)
+                    //                      						)"
+                    //, transaction: CurrentTransaction
+                    //, commandType: CommandType.Text);
 
                     Mensagem = "SUCESSO! AMBIENTE CONFIGURADO, TESTE E SALVE A CONEXAO";
                 }
@@ -237,8 +249,15 @@ namespace TesiNexus.Nexus.ViewModels
                     Mensagem = ex.Message;
                 }
             }
-        }
 
+            string programData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            string tempFolder = programData + "\\NexusConfig\\Temp";
+
+            if (Directory.Exists(tempFolder))
+            {
+               Directory.Delete(tempFolder, true);
+            }
+        }
 
         public void CloseApp()
         {

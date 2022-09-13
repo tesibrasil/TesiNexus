@@ -81,7 +81,132 @@ namespace TesiNexus.Helpers
             }
             catch (Exception ex)
             {
+                throw;
+            }
+        }
 
+        public static async Task DownloadDataBaseAsync()
+        {
+            try
+            {
+                //lembrar de pegar json da estrutura do projeto
+                // var path = @"D:\Felipe\Arquivos\Json\credential.json";
+                 var path = @"D:\A ERA DE ULTRON\credential.json";
+
+                var tokenStorage = new FileDataStore("UserCredentialStoragePath", true);
+
+                UserCredential credential;
+
+                await using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+                {
+                    credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                        GoogleClientSecrets.Load(stream).Secrets,
+                        new[] { DriveService.ScopeConstants.DriveReadonly },
+                        "userName",
+                        CancellationToken.None,
+                        tokenStorage).Result;
+                }
+
+                var service = new DriveService(new BaseClientService.Initializer()
+                {
+                    HttpClientInitializer = credential
+                });
+
+                var request = service.Files.List();
+                request.Q = $"name contains 'VVAND4.bak'";
+
+                var result = await request.ExecuteAsync();
+
+                var file = result.Files.FirstOrDefault();
+                var getRequest = service.Files.Get(file.Id);
+
+                string programData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+                string folder = programData + "\\NexusConfig\\Temp";
+                string downloadFile = folder + $"\\{file.Name}";
+
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                else
+                {
+                    if(File.Exists(downloadFile))
+                      File.Delete(downloadFile);
+                }
+
+                await using var fileStream = new FileStream(downloadFile, FileMode.Create, FileAccess.Write);
+                await getRequest.DownloadAsync(fileStream);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public static async Task<string> CheckLatestVersionAsync(string currentVersion)
+        {
+            try
+            {
+                //lembrar de pegar json da estrutura do projeto
+                // var path = @"D:\Felipe\Arquivos\Json\credential.json";
+                var path = @"D:\A ERA DE ULTRON\credential.json";
+
+                var tokenStorage = new FileDataStore("UserCredentialStoragePath", true);
+
+                UserCredential credential;
+
+                await using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+                {
+                    credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                        GoogleClientSecrets.Load(stream).Secrets,
+                        new[] { DriveService.ScopeConstants.DriveReadonly },
+                        "userName",
+                        CancellationToken.None,
+                        tokenStorage).Result;
+                }
+
+                var service = new DriveService(new BaseClientService.Initializer()
+                {
+                    HttpClientInitializer = credential
+                });
+
+                var latestVersion = service.Files.List();
+                latestVersion.Q = $"parents in '1y8XxdR6dAITXoJV2thGKTsXfsyxiYhYJ'";
+
+                var result = await latestVersion.ExecuteAsync();
+
+                var file = result.Files.FirstOrDefault();
+                currentVersion += ".sql";
+                if (!currentVersion.Equals(file.Name))
+                {
+                    var getRequest = service.Files.Get(file.Id);
+
+                    string programData = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+                    string folder = programData + "\\NexusConfig\\Temp";
+                    string downloadFile = folder + $"\\{file.Name}";
+
+                    if (!Directory.Exists(folder))
+                    {
+                        Directory.CreateDirectory(folder);
+                    }
+                    else
+                    {
+                        if (File.Exists(downloadFile))
+                            File.Delete(downloadFile);
+                    }
+
+                    await using var fileStream = new FileStream(downloadFile, FileMode.Create, FileAccess.Write);
+                    await getRequest.DownloadAsync(fileStream);
+
+                    return downloadFile;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            catch (Exception ex)
+            {
                 throw;
             }
 

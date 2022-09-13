@@ -8,27 +8,28 @@
         x:Class="TesiNexus.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="TesiNexus"
-		Name="TesiNexus"
+		Name="TesiNexus" 
 	    TransparencyLevelHint="AcrylicBlur"
-        Background="Transparent"
+        Background="Black"
 		ExtendClientAreaToDecorationsHint="True"
 		xmlns:bhv="clr-namespace:TesiNexus.Behaviors"
-		WindowStartupLocation="CenterScreen" WindowState="Maximized" >
-
+		WindowStartupLocation="CenterScreen" WindowState="Maximized" >	
 
 	<Design.DataContext>
 		<vm:MainWindowViewModel/>
 	</Design.DataContext>
-
+	
+	
 	<Grid>
 		<ExperimentalAcrylicBorder IsHitTestVisible="False">
 			<ExperimentalAcrylicBorder.Material>
 				<ExperimentalAcrylicMaterial
 					BackgroundSource="Digger"
-					TintColor="DarkGray"
-					TintOpacity="1"
-					MaterialOpacity="0.60" />
+					TintColor="Black"
+					TintOpacity="10"
+					MaterialOpacity="0.75" />
 			</ExperimentalAcrylicBorder.Material>
+
 		</ExperimentalAcrylicBorder>
 
 		<Image
@@ -43,50 +44,30 @@
 
 		<Grid Name="gridCenter"
 			RowDefinitions="30, 60, *, 60">
-			<Panel Grid.Row="0">
-				<ExperimentalAcrylicBorder IsHitTestVisible="False">
-					<ExperimentalAcrylicBorder.Material>
-						<ExperimentalAcrylicMaterial
-							BackgroundSource="Digger"
-							TintColor="Black"
-							TintOpacity="1"
-							MaterialOpacity="0.65" />
-					</ExperimentalAcrylicBorder.Material>
-				</ExperimentalAcrylicBorder>
-			</Panel>
 
 			<!--Header-->
 			<Panel
-				Background="black"
+				Classes="ThirdGray"
 				Name="MenuBar"
-				Grid.Row="1"
-				>
-				<ExperimentalAcrylicBorder IsHitTestVisible="False">
-					<ExperimentalAcrylicBorder.Material>
-						<ExperimentalAcrylicMaterial
-							BackgroundSource="Digger"
-							TintColor="Black"
-							TintOpacity="0"
-							MaterialOpacity="0.65" />
-					</ExperimentalAcrylicBorder.Material>
+				Grid.Row="1">
 
-				</ExperimentalAcrylicBorder>
 
 				<Grid ColumnDefinitions="*,1,*">
-					<ToggleButton Classes="h"
-						Background="Transparent"
+					<ToggleButton 
+						Classes="CustomToggleButton"
 						Grid.Column="0"
 						Width="70"
 						Height="58"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Center"
 						IsChecked="{Binding ShowMenu, Mode=TwoWay}"
+						Margin="15 0 0 0"
 						>
 						<icons:MaterialIcon
 							Kind="Menu"
 							Foreground="White"
-							Height="50"
-							Width="50"
+							Height="30"
+							Width="30"
 							Margin="5"
 							/>
 					</ToggleButton>
@@ -115,7 +96,6 @@
 			<!--Center-->
 
 			<Grid
-				Background="Transparent"
 				Grid.Row="2">
 
 				<Border Width="{Binding WidthBorder}"
@@ -123,9 +103,7 @@
 						BorderThickness="0.5"
 						Margin="20,5,0,5"
 						CornerRadius="10"
-						BorderBrush="White"
-						Background="Black"
-						Opacity="155"
+						Classes="ThirdGray"
 						ZIndex="10"
 						>
 
@@ -151,6 +129,7 @@
 							 Name="Cog"
 							 HorizontalAlignment="Center"
 							 Margin="0 10 0 0"
+									 Command="{Binding ShowConfigurationCommand}"
 							 />
 
 
@@ -172,19 +151,10 @@
 
 			<!--Footer-->
 			<Panel
-				Background="black"
+				Classes="ThirdGray"
 				Name="Footer"
 				Grid.Row="3"
 				>
-				<ExperimentalAcrylicBorder IsHitTestVisible="False">
-					<ExperimentalAcrylicBorder.Material>
-						<ExperimentalAcrylicMaterial
-							BackgroundSource="Digger"
-							TintColor="Black"
-							TintOpacity="0"
-							MaterialOpacity="0.65" />
-					</ExperimentalAcrylicBorder.Material>
-				</ExperimentalAcrylicBorder>
 
 				<Image
 					Source="/Assets/TesiNexus.png"

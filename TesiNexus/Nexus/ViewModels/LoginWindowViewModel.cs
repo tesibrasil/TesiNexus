@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TesiNexus.Helpers;
 using TesiNexus.Nexus.Views;
 using TesiNexus.ViewModels;
 using TesiNexus.Views;
@@ -85,22 +86,25 @@ namespace TesiNexus.Nexus.ViewModels
 
         public bool VerificarUsuario()
         {
-
+            bool user = false;
             string conectionString = $@"Data Source={((App)App.Current).RunningNexus.IpAdress};User ID={((App)App.Current).RunningNexus.UserLogin};Password={((App)App.Current).RunningNexus.Password};Initial Catalog=VVAND4;";
+
+            string s = Crypto.Encrypt(Password);
 
             using (SqlConnection conn = new SqlConnection(conectionString))
             {
+                
                 conn.Open();
 
                 try
                 {
-
-                 var user =  conn.Query<bool>(@"LoginNexusUser", param: new
+                    
+                     user =  conn.Query(@"LoginNexusUser", param: new
                  {
                      login = User,
-                     password = Password
-                 }, transaction: CurrentTransaction
-                  , commandType: CommandType.StoredProcedure);
+                     password = s,
+                 },  transaction: CurrentTransaction
+                  ,  commandType: CommandType.StoredProcedure).FirstOrDefault();
 
                 }
                 catch
@@ -110,7 +114,15 @@ namespace TesiNexus.Nexus.ViewModels
 
             }
 
-            return true;
+            if (user) 
+            { 
+                return true; 
+            }
+            else
+            {
+                return false;
+            }
+            
 
         }
     }

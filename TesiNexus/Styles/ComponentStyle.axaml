@@ -101,9 +101,16 @@
 
 	<Style Selector="Button.ColorFont">
 		<Style.Setters>
-			<Setter Property="Foreground" Value="Yellow"></Setter>
+			<Setter Property="Foreground" Value="White"></Setter>
 		</Style.Setters>
 	</Style>
+
+	<Style Selector="Button.ColorFont:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Style.Setters>
+			<Setter Property="TextBlock.Foreground" Value="Yellow" />
+		</Style.Setters>
+	</Style>
+
 
 	<!--Button-->
 

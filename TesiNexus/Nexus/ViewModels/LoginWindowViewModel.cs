@@ -99,10 +99,10 @@ namespace TesiNexus.Nexus.ViewModels
                 try
                 {
                     
-                     user =  conn.Query(@"LoginNexusUser", param: new
+                     user =  conn.Query<bool>(@"LoginNexusUser", param: new
                  {
                      login = User,
-                     password = s,
+                     password = Password,
                  },  transaction: CurrentTransaction
                   ,  commandType: CommandType.StoredProcedure).FirstOrDefault();
 

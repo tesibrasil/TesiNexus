@@ -148,8 +148,8 @@ namespace TesiNexus.Helpers
             try
             {
                 //lembrar de pegar json da estrutura do projeto
-                // var path = @"D:\Felipe\Arquivos\Json\credential.json";
-                var path = @"D:\A ERA DE ULTRON\credential.json";
+                 var path = @"D:\Felipe\Arquivos\Json\credential.json";
+                //var path = @"D:\A ERA DE ULTRON\credential.json";
 
                 var tokenStorage = new FileDataStore("UserCredentialStoragePath", true);
 

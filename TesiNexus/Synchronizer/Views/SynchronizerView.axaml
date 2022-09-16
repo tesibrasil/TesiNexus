@@ -43,6 +43,7 @@
 							 HorizontalAlignment="Stretch" Grid.Column="0"
 							 VerticalAlignment="Center"
 							 Margin="10,10,0,0"
+							 Height="40"
 							 Classes="CustomComboBox"
 								 />
 
@@ -50,12 +51,13 @@
 						<Button
 							Grid.Column="1"
 							Width="150"
-							Height="50"
-							Margin="10"
+							Height="40"
+							Margin="10,10,10,0"
 							Name="btnNewGroup"
 							HorizontalContentAlignment="Center"
 							VerticalContentAlignment="Center"
-							Classes="ColorFont">
+							Classes="ColorFont"
+							CornerRadius="25">
 
 							<DockPanel>
 								<Label
@@ -128,8 +130,9 @@
 							VerticalAlignment="Bottom">
 						<Button
 							Width="150"
-							Height="50"
+							Height="40"
 							Margin="10"
+							CornerRadius="25"
 							HorizontalContentAlignment="Center"
 							VerticalContentAlignment="Center"
 							Classes="ColorFont">
@@ -157,8 +160,9 @@
 							VerticalAlignment="Bottom">
 							<Button
 								Width="150"
-								Height="50"
+								Height="40"
 								Margin="10"
+								CornerRadius="25"
 								HorizontalContentAlignment="Center"
 								VerticalContentAlignment="Center"
 								Classes="ColorFont">

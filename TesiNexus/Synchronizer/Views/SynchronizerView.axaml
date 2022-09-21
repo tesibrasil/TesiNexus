@@ -63,7 +63,8 @@
 								<Label
 									DockPanel.Dock="Right"
 									HorizontalContentAlignment="Center"
-									VerticalContentAlignment="Center">
+									VerticalContentAlignment="Center"
+									FontSize="12">
 									Novo Grupo
 								</Label>
 								<icons:MaterialIcon
@@ -140,7 +141,8 @@
 								<Label
 									DockPanel.Dock="Right"
 									HorizontalContentAlignment="Center"
-									VerticalContentAlignment="Center">
+									VerticalContentAlignment="Center"
+									FontSize="12">
 									Iniciar
 								</Label>
 								<icons:MaterialIcon
@@ -170,7 +172,8 @@
 									<Label
 										DockPanel.Dock="Right"
 										HorizontalContentAlignment="Center"
-										VerticalContentAlignment="Center">
+										VerticalContentAlignment="Center"
+										FontSize="12">
 										Rollback
 									</Label>
 									<icons:MaterialIcon

@@ -57,7 +57,8 @@
 							HorizontalContentAlignment="Center"
 							VerticalContentAlignment="Center"
 							Classes="ColorFont"
-							CornerRadius="25">
+							CornerRadius="25"
+							Command="{Binding ShowServerGroup}">
 
 							<DockPanel>
 								<Label

@@ -1,0 +1,38 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:TesiNexus.Synchronizer.ViewModels"
+		mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="500"
+		MinWidth="600" MinHeight="500" MaxWidth="600" MaxHeight="500"
+        x:Class="TesiNexus.Synchronizer.Views.ServerGroupView"
+        Title="ServerGroupView">
+
+	<Design.DataContext>
+		<vm:ServerGroupViewModel/>
+	</Design.DataContext>
+
+	<Panel Background="Black"
+	   Name="DataBaseScreen">
+
+		<ExperimentalAcrylicBorder IsHitTestVisible="False">
+			<ExperimentalAcrylicBorder.Material>
+				<ExperimentalAcrylicMaterial
+					BackgroundSource="Digger"
+					TintColor="Black"
+					TintOpacity="10"
+					MaterialOpacity="0.75" />
+			</ExperimentalAcrylicBorder.Material>
+
+		</ExperimentalAcrylicBorder>
+
+		<Grid>
+			<Label Content="Working Server Group"></Label>
+			
+		</Grid>
+		
+	</Panel>
+    
+</Window>
+
+

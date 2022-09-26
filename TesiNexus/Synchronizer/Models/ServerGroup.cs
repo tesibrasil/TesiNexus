@@ -11,7 +11,7 @@ namespace TesiNexus.Synchronizer.Models
         public int ServerGroupID { get; set; }
         public String Name { get; set; }
         public List<Destination> Destinations { get; set; }
-
+        public int Inactive { get; set; }
 
         public ServerGroup()
         {

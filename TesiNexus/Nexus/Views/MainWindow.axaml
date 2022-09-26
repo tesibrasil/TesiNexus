@@ -157,11 +157,11 @@
 				>
 
 				<Image
-					Source="/Assets/TesiNexus.png"
+					Source="/Assets/tesi.png"
 					HorizontalAlignment="Right"
 					Height="30"
 					Margin="20"
-					ToolTip.Tip="Sobre o TesiNexus"
+					ToolTip.Tip="Sobre a Tesi"
 					ToolTip.ShowDelay="10">
 
 				</Image>

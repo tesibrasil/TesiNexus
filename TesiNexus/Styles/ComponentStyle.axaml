@@ -128,8 +128,15 @@
 	</Style>
 	
 	<!--ToggleButton-->
-	
-	
+
+	<!--Forms-->
+
+	<Style Selector="Window.tool_window Panel#PART_MinimiseButton">
+		<Setter Property="IsVisible" Value="False"></Setter>
+	</Style>
+	<Style Selector="Window.tool_window Panel#PART_RestoreButton">
+		<Setter Property="IsVisible" Value="False"></Setter>
+	</Style>
 	
 </Styles>
 

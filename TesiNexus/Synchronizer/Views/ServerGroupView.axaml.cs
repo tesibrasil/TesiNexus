@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
 
 namespace TesiNexus.Synchronizer.Views
 {
@@ -7,6 +8,16 @@ namespace TesiNexus.Synchronizer.Views
         public ServerGroupView()
         {
             InitializeComponent();
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+
+            this.Get<Control>("ServerGroupScreen").PointerPressed += (i, e) =>
+            {
+                PlatformImpl?.BeginMoveDrag(e);
+            };
         }
     }
 }

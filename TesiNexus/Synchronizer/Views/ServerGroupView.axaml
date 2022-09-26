@@ -6,14 +6,15 @@
 		mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="500"
 		MinWidth="600" MinHeight="500" MaxWidth="600" MaxHeight="500"
         x:Class="TesiNexus.Synchronizer.Views.ServerGroupView"
-        Title="ServerGroupView">
+		ExtendClientAreaToDecorationsHint="True"
+        Title="ServerGroupView" Classes="tool_window" >
 
 	<Design.DataContext>
 		<vm:ServerGroupViewModel/>
 	</Design.DataContext>
 
 	<Panel Background="Black"
-	   Name="DataBaseScreen">
+	   Name="ServerGroupScreen">
 
 		<ExperimentalAcrylicBorder IsHitTestVisible="False">
 			<ExperimentalAcrylicBorder.Material>
